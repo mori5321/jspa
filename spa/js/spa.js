@@ -7,52 +7,12 @@
 
 /* global jQuery spa:true */
 
+// spa namespace
 
-var spa = (function ($) {
-  var configMap = {
-    extended_height : 434,
-    extended_title : 'Click to retract',
-    retracted_height : 16,
-    retracted_title : 'Click to extend',
-    template_html : '<div class="spa-slider"><\/div>'
-  },
-  $chatSlider, toggleSlider, onClickSlider, initModule;
-
-  toggleSlider = function() {
-    var slider_height = $chatSlider.height();
-
-    if ( slider_height === configMap.retracted_height ) {
-      $chatSlider
-        .animate({ height: configMap.extended_height })
-        .attr( 'title', configMap.extended_title );
-      return true;
-    }
-    else if ( slider_height === configMap.extended_height ) {
-      $chatSlider
-        .animate({ height : configMap.retracted_height})
-        .attr( 'title', configMap.retracted_title );
-      return true
-    }
-  }
-
-  onClickSlider = function(event) {
-    toggleSlider();
-    return false;
+var spa = (function() {
+  var initModule = function($container) {
+    spa.shell.initModule($container);
   };
 
-  initModule = function( $container ) {
-    $container.html( configMap.template_html );
-    $chatSlider = $container.find('.spa-slider');
-    $chatSlider
-      .attr('title', configMap.retracted_title)
-      .click( onClickSlider );
-    return true;
-  };
-
-  return { initModule: initModule };
-}( jQuery ));
-
-
-jQuery(document).ready(
-  function () { spa.initModule( jQuery('#spa'))}
-);
+  return { initModule: initModule }
+}());
